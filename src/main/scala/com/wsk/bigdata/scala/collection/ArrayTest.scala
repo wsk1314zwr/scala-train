@@ -1,7 +1,6 @@
 package com.wsk.bigdata.scala.collection
 
 import scala.collection.mutable.ArrayBuffer
-import scala.swing.event.AdjustingEvent
 
 object ArrayTest {
 
