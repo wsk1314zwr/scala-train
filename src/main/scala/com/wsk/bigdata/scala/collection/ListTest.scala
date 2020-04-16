@@ -31,5 +31,8 @@ object ListTest {
     println(ints3.toList)
     ints3 -=5
     println(ints3)
+
+    val strings = new ListBuffer[(String)]()
+    strings += ("2")
   }
 }
