@@ -15,6 +15,7 @@ object ExtendApp {
     val d = new D
     d.play()
     println(d.sleep())
+    d.eat()
 
   }
 
@@ -30,7 +31,7 @@ object ExtendApp {
   * 4、子类重写var修饰的属性不用添加修饰符，重写val修饰的属性需要添加override修饰符
   * 5、抽象类中可以存在没有实现的方法和属性（无值），抽象类不能直接被new对象
   * 6、一个类只能继承一个父类
-  * 7、trait和抽象类很类似，但是一个类可以继承多个trait，
+  * 7、trait和接口很类似一个类可以继承多个trait，
   * 8、继承tait语法 extend A| extend A with B ，注意若同时继承父类和trait，则extend后面必须是父类
   */
 class BigTree(name: String, citys: String, money: Float)

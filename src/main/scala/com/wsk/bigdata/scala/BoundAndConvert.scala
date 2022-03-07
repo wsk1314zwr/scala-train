@@ -24,12 +24,12 @@ object BoundAndConvert {
     def use[U >: T](u : U) = {println(u)}
   }
 
-  //协变
+  //协变，子类对象赋予父类变量
   class Covariant[+T](t:T){}
   val cov = new Covariant[Bird](new Bird)
   val cov2:Covariant[Animal] = cov
 
-  //逆变
+  //逆变，父类对象赋予子类变量
   class Contravariant[-T](t: T) {
   }
   val c: Contravariant[Animal] = new Contravariant[Animal](new Animal)

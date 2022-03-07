@@ -19,7 +19,7 @@ object StringTest {
     val lins=
       s"""
         |欢迎来到wsk的工作空间
-        |hell，${name} like study Scala
+        |hell，$name like study Scala
         |good good study day day up
       """.stripMargin
     println(lins)

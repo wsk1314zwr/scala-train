@@ -22,26 +22,25 @@ class People {
   println("你好")
 }
 
-/** 3.属性可以写在类名后面
-  *
+/**
+  *3.属性可以写在类名后面
   */
 class People2(name: String, city: String) {
   println(name + ":" + city)
 }
 
-/** 4.附属构造器可以是多个，但是代码的第一行必须先走主构造器或其它附属构造器,
-  *
-  *
+/**
+  *4.附属构造器可以是多个，即使通过附属构造器构造对象，但是代码的第一行必须先走主构造器再走其它附属构造器,
   */
 class People3(name: String, city: String) {
 
   var age: Int = _
-  println("此时的age为" + age)
+  println("此时的age为，主" + age)
 
   def this(name: String, city: String, age: Int) {
     this(name, city)
     this.age = age
-    println("此时的age为" + age)
+    println("此时的age为，附属" + age)
 
   }
 }

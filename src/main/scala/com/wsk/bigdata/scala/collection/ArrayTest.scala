@@ -8,7 +8,7 @@ object ArrayTest {
     * 数组
     * 1)Array定长数组，ArrayBuffer变长数组，生产中常用变长
     * 2)Array(T*)方式创建的数组，调用的apply方法，该方法中new Array()了,案例类也可以不new就可以创建对象
-    * 3)不管是apply还是案列类，最终的底层必然一定是有new，不new对象，JVM怎么能接受
+    * 3)不管是object()调用apply方法还是案列类，最终的底层必然一定是有new，不new对象，JVM怎么能接受
     * 4)java》StringBuffer:线程安全的，底层代码方法有synchronized锁，jdk1.0出的，StringBuilder:线程不安全的，JDK1.5出。后者性能更好
     * 5)java》Vector:线程安全的，ArrayList：线程不安全的，同理Vector先出现
     * 6) ArrayBuffer添加元素 是通过 += 或者 ++=
