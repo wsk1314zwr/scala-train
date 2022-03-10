@@ -8,7 +8,7 @@ object Timer {
      * 1）调用属性和方法直接可通过 ObjectName.。它类似于java的static修饰属性和方法
      * 2)第一次调用Object会将{}中代码都执行一遍
      * 3)object()=>调用的是Object.apply方法，同时会满足情况2，该apply一定是new 伴生类的对象返回
-     * 4)(new 对象)()=>调的是Class.apply方法
+     * 4)(new 对象())()=>调的是Class.apply方法
      *
      * 伴生类和伴生对象之间的区别与关系
      * 1.在Scala中声明private变量,Scala编译器会自动生成get,set方法
@@ -42,9 +42,9 @@ object Timer {
         //object apply 方式创建对象
 //    val test = ApplyTest()
 //    test.method()
-//class appy方法调用
-val test2 = new ApplyTest()
-        println(test2())
+
+val test2 = new ApplyTest() //不会调用 appy方法
+        println(test2()) //会调用class的appy方法
     }
 
     var count = 0;
