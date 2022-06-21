@@ -10,7 +10,7 @@
 <!--        <spark.version>2.4.0</spark.version>-->
         <spark.version>1.6.0</spark.version>
         <scalikejdbc.version>3.3.2</scalikejdbc.version>
-        <mysql.jdbc.version>5.1.38</mysql.jdbc.version>
+        <mysql.jdbc.version>8.0.28</mysql.jdbc.version>
         <hadoop.version>2.6.0-cdh5.7.0</hadoop.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
