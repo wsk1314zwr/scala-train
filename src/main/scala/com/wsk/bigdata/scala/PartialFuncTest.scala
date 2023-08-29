@@ -21,10 +21,10 @@ object PartialFuncTest {
   }
 
   //模式匹配
-  def say(name: String):String= name match {
-    case "s" => name +" is s"
-    case "k" => name +" is k"
-    case _ => name +" is unknow"
+  def say(name: String): String = name match {
+    case "s" => name + " is s"
+    case "k" => name + " is k"
+    case _ => name + " is unknow"
   }
   //偏函数
   def say2:PartialFunction[String,String]={

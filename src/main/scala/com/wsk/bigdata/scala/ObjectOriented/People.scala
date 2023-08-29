@@ -30,4 +30,7 @@ class Peo() {
     println(name + "与" + name2 + "做py交易")
   }
 
+  def say(): String = {
+    ""
+  }
 }

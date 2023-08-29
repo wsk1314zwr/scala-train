@@ -2,7 +2,8 @@ package com.wsk.bigdata.scala
 
 import java.io.{FileNotFoundException, FileReader, IOException}
 import java.util.concurrent.ConcurrentHashMap
-
+import scala.language.postfixOps
+import scala.util.{Failure, Success, Try}
 import scala.util.matching.Regex
 
 object Study {
@@ -19,7 +20,7 @@ object Study {
         //    println(max2(3,7))
         //    println(xunhuan(4,5))
         //    shuzu()
-            objectType
+//        objectType
 //            funTest()
 
 //    xunhuanceshi()
@@ -33,8 +34,13 @@ object Study {
 //        println(matchTest(5))
 //        println(matchTest("34。34"))
 
-//            regexTest()
-            execptionTest()
+        //            regexTest()
+        //            execptionTest()
+        //Try test
+        val person = Person("wsk", 35)
+        val wsk = tryTest(person, "name")
+        print(wsk)
+//        collectionTest()
     }
 
 
@@ -304,7 +310,7 @@ object Study {
      * (重要)Scala 使用 Option、Some、None，避免使用 Null，None 被声明为一个对象，而不是一个类而java的null是关键字
      */
 
-    def CollectionTest(): Unit = {
+    def collectionTest(): Unit = {
         //list
         val lists = List(1, 2, 4)
         for (v <- lists) {
@@ -337,6 +343,8 @@ object Study {
         val mpasss: Map[String, Int] = Map("key1" -> 2)
         val values1: Option[Int] = mpasss.get("key1")
         val values2: Option[Int] = mpasss.get("key2")
+        val value2 = values2.getOrElse("*")
+        println("value =" + value2)
         println("Options[T] =" + values1)
         println(values2 == None)
 
@@ -377,10 +385,10 @@ object Study {
     /**
      * 模式匹配：match  case 对应 Java 里的 switch，但是写在选择器表达式之后。即： 选择器 match {备选项}，其匹配的选项类型更多更加的复杂
      * 样例类：使用了case关键字的类定义就是就是样例类(case classes)，
-     *     1。构造器的每个参数都成为val，除非显式被声明为var，但是并不推荐这么做
-     *     2。在伴生对象中提供了apply方法，所以可以不使用new关键字就可构建对象
-     *     3。提供unapply方法使模式匹配可以工作
-     *     4。生成toString、equals、hashCode和copy方法，除非显示给出这些方法的定义
+     * 1。构造器的每个参数都成为val，除非显式被声明为var，但是并不推荐这么做
+     * 2。在伴生对象中提供了apply方法，所以可以不使用new关键字就可构建对象
+     * 3。提供unapply方法使模式匹配可以工作
+     * 4。生成toString、equals、hashCode和copy方法，除非显示给出这些方法的定义
      */
 
     def matchTest(x: Any): Any = x match {
@@ -390,11 +398,11 @@ object Study {
         case 0 | "" => false    //在0或空字符串的情况下,返回false
         case 2 | 4 | 6 | 8 | 10 => println("偶数")     //在10及以下的偶数,返回"偶数"
         case x if x == 2 || x == 3 => println("two's company, three's a crowd")    //在模式匹配中使用if
-        case Person("bob", 3) =>print("hi bob")
+        case Person("bob", 3) => print("hi bob")
         case _ => 9
     }
 
-  case class Person(name: String, age: Int)
+    case class Person(name: String, age: Int)
 
     /**
      * 正则表达式：
@@ -428,6 +436,51 @@ object Study {
         } finally {
             println("Exiting finally...")
         }
+    }
+
+    /**
+     *
+     * Try:scala提供的用于判断某段代码运行是否发生异常：https://blog.csdn.net/Vector97/article/details/104054499
+     *  1）其返回的子类是Success表示代码块运行正常以及正常的结果值
+     *  2）返回Failure表示代码块运行异常，以及异常对象，相较于Option，Option只能返回是否有值，并不能展示异常信息
+     *
+     */
+    def tryTest(o: Any, name: String): Any = {
+        /**
+         * 1）可以将将()省略，如下面注释的代码，但是不能写成 ()=>{val xxx}，因为Try apply方法是直接使用,这样会导致{}的代码并不会在Try的apply方法中进行
+         * 2）若是定义为 ()=>{val xxx}，那么apply的r也要定义为()=> T,使用也是r(),说白了1是2的简写
+         * 3) recover:接受任何异常并将其转换为其它有效的结果，若没有异常则返回Success()
+         */
+        val name1 = Try({
+            val field = o.getClass.getDeclaredField(name)
+            field.setAccessible(true)
+            field.get(o)
+        }) match {
+            case Success(value) => value
+            case Failure(exception) => throw exception
+        }
+        val name2 = Try {
+            val field = o.getClass.getDeclaredField(name)
+            field.setAccessible(true)
+            field.get(o)
+        } match {
+            case Success(value) => value
+            case Failure(exception) => throw exception
+        }
+
+        val name3 = Try({
+            val field = o.getClass.getDeclaredField(name)
+            field.setAccessible(true)
+            field.get(o)
+            println(0/0)
+        }) recover {
+            case e: Exception =>
+                println("异常", e)
+                //这里的抛出异常，并不是往上层抛出，而是生成的Failure对象含有异常信息，Failure重写了recover其捕获了非致命的异常
+                throw e
+        }
+        println(name3)
+        "123"
     }
 
     /**
@@ -465,8 +518,8 @@ object Study {
     /**
      * 泛型[T]的6种使用：
      * 1、scala的类和方法、函数都可以的使用泛型
-     *      泛型类：指定类可以接受任意类型参数
-     *      泛型方法：指定方法可以接受任意类型参数
+     * 泛型类：指定类可以接受任意类型参数
+     * 泛型方法：指定方法可以接受任意类型参数
      * 2、泛型可以设置边界： 上边界（<：）,下边界(>:)
      * 3、"<%" :view bounds可以进行某种神秘的转换，把你的类型在没有知觉的情况下转换成目标类型，
      * 其实你可以认为view bounds是上下边界的加强和补充，语法为："<%"，要用到implicit进行隐式转换（见下面例子
