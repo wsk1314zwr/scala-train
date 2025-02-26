@@ -25,7 +25,7 @@ object Study {
 
 //    xunhuanceshi()
 
-        //    funTest()
+            funTest()
         //    shuzuTest()
         //    CollectionTest()
 
@@ -37,10 +37,12 @@ object Study {
         //            regexTest()
         //            execptionTest()
         //Try test
-        val person = Person("wsk", 35)
-        val wsk = tryTest(person, "name")
-        print(wsk)
+//        val person = Person("wsk", 35)
+//        val wsk = tryTest(person, "name")
+//        print(wsk)
 //        collectionTest()
+
+        optionTest()
     }
 
 
@@ -534,6 +536,26 @@ object Study {
 
         //    https://www.cnblogs.com/LazyJoJo/p/6410509.html
 
+    }
+
+    def optionTest(): Unit = {
+        val opt1: Option[String] = Some("hello")
+        val opt2: Option[String] = Some("hello")
+        val opt3: Option[String] = Some("world")
+        val opt4: Option[String] = None
+        val opt5: Option[String] = None
+
+// 使用 == 比较
+        println(opt1 == opt2)  // true，因为两个都是 Some("hello")
+        println(opt1 == opt3)  // false，因为值不同
+        println(opt1 == opt4)  // false，因为一个是 Some，另一个是 None
+        println(opt4 == opt5)  // true，因为两个都是 None
+
+// 使用 equals 方法比较
+        println(opt1.equals(opt2))  // true
+        println(opt1.equals(opt3))  // false
+        println(opt1.equals(opt4))  // false
+        println(opt4.equals(opt5))  // true
     }
 }
 
